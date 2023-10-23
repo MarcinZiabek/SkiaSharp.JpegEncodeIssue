@@ -1,15 +1,16 @@
-﻿using SkiaSharp;
+﻿using System.IO;
+using SkiaSharp;
 
 void Example1()
 {
-    using var image = SKImage.FromEncodedData("image.png");
+    using var image = SKImage.FromEncodedData("input1.png");
     using var data = image.Encode(SKEncodedImageFormat.Jpeg, 90);
-    File.WriteAllBytes("output1.jpeg", data.ToArray());
+    File.WriteAllBytes("output1.jpg", data.ToArray());
 }
 
 void Example2()
 {
-    using var image = SKImage.FromEncodedData("image.jpg");
+    using var image = SKImage.FromEncodedData("input2.jpg");
     using var data = image.Encode(SKEncodedImageFormat.Png, 100);
     File.WriteAllBytes("output2.png", data.ToArray());
 }
@@ -36,6 +37,10 @@ void Example3(SKEncodedImageFormat format)
     File.WriteAllBytes($"output3.{format.ToString().ToLower()}", data.ToArray());
 }
 
+// IMPORTANT!
+// on windows 11 everything works correctly
+// problems (image artifacts when encoding SkImage as JPEG file) are present on MacOS Sonoma 14.0.0, dotnet 7.0.401
+
 // broken: loading image as JPEG, saving as PNG
 Example1();
 
@@ -48,5 +53,3 @@ Example3(SKEncodedImageFormat.Jpeg);
 // works: generating image in runtime and saving as PNG
 Example3(SKEncodedImageFormat.Png);
 
-// conclusions: JPEG Encode does not work properly
-// run on MacOS Sonoma 14.0.0, dotnet 7.0.401
