@@ -41,10 +41,10 @@ void Example3(SKEncodedImageFormat format)
 // on windows 11 everything works correctly
 // problems (image artifacts when encoding SkImage as JPEG file) are present on MacOS Sonoma 14.0.0, dotnet 7.0.401
 
-// broken: loading image as JPEG, saving as PNG
+// broken: loading image as PNG, saving as JPEG
 Example1();
 
-// works: loading image as PNG, saving as JPEG
+// works: loading image as JPEG, saving as PNG
 Example2();
 
 // broken: generating image in runtime and saving as JPEG
